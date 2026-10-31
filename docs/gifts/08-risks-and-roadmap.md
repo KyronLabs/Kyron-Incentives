@@ -16,19 +16,15 @@ let people buy coins".
 | Gift names in other languages | Names come from the server in English. The surrounding strings are translatable. |
 | Moderation of gifting | There are no limits per post or per pair of accounts, and no reporting of gift spam. Blocks are the only control. |
 
-## Known gaps and inconsistencies (as of v0.1.23)
+## Known gaps and inconsistencies
 
-1. **The landing burst ignores reduced motion.** The flight and the idle
-   motions respect `MediaQuery.disableAnimations`, but the gold punch on
-   the heart reuses the like's animation, which does not check it. To fix:
-   skip `_play.forward` for a landing when animations are disabled.
-2. **Two stale comments still say "emoji fallback".**
-   - `api/src/modules/gifts/gift-catalogue.ts` says "the app … shows the
-     emoji for a type it has no picture for".
-   - `app/assets/gifts/README.md` says the same and also says "about 56
-     logical pixels".
-   Since v0.1.23 the app draws a gold present icon, and tiles are 48 px.
-   Comment-only; no behaviour depends on them.
+1. ~~**The landing burst ignored reduced motion.**~~ *Fixed in kyron PR #134
+   (after v0.1.23).* It was a roughly 31 ms gold flash: Flutter shortens a
+   controller to 5% of its length under reduced motion instead of skipping
+   it. The landing is now not played at all.
+2. ~~**Two stale comments said "emoji fallback".**~~ *Fixed in the same PR.*
+   The catalogue comment, the artwork README and the cut tool (48 px tiles)
+   now match the app.
 3. **The server still sends `emoji`.** This is kept for app builds before
    v0.1.22. It can be removed once those builds are no longer supported.
 4. **Gifting hides your like.** The gift replaces the heart icon, so whether

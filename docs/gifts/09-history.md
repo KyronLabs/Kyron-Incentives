@@ -13,6 +13,7 @@ How gifts were built, oldest first. Commits are on `KyronLabs/kyron`
 | 2026-10-30 | v0.1.22 | **Gifts look like gifts.** Eight AI-generated PNGs, with Rose 3, Star 10, Cake 30 and Rocket 100 added. A 4-column grid with prices and a coin under each gift, the balance top-right, a "sent" pop. The hold shortened from the platform's 500 ms to 350 ms. | `cd3d2c3`, PR #132 |
 | 2026-10-30 | v0.1.23 | **Gifts land on the heart.** `viewerGift` on posts. Sparkle celebration, flight to the heart, the heart becomes the gift with a gold landing. Idle motion per gift. No emoji anywhere: the button, the fallback and notifications all use the PNGs. Haptics on pick, send and land. | `9d2d07a`, PR #133 |
 | 2026-10-31 | — | This documentation. | — |
+| 2026-10-31 | next | No landing burst with reduced motion. Stale "emoji fallback" comments corrected. | kyron PR #134 |
 
 ## Lessons recorded along the way
 
@@ -26,3 +27,7 @@ How gifts were built, oldest first. Commits are on `KyronLabs/kyron`
   README included. List the files.
 - **Provenance has to be written down when the asset is made.** That is why
   `app/assets/gifts/README.md` exists.
+- **Reduced motion does not stop an `AnimationController`.** Flutter
+  shortens it to 5% of its length, so a 620 ms burst became a 31 ms flash
+  that a test looking at 120 ms could not see. A test must look inside that
+  window, and a motion that must not appear has to check the setting itself.
