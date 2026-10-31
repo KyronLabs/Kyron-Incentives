@@ -68,7 +68,7 @@ database tests, which share the variable.
 
 ## App tests: `app/test/gifts_test.dart`
 
-38 tests. All run in CI.
+39 tests. All run in CI.
 
 | Group | Tests |
 |:--|:--|
@@ -79,7 +79,7 @@ database tests, which share the variable.
 | the sheet | the test-coins notice. The balance in the top right. The price under each gift. Artwork in four columns. Nothing sent until picked and pressed, and the Send button shows "Send Fire" with a coin. No emoji before or after sending. A sparkle burst (`GiftBurstPainter`) as it goes. Motions only on affordable gifts, and the sheet settles. Will not send what the wallet cannot cover. Shows "Fire sent", then closes with the result. A retry is the same request. A different gift is a new request |
 | the artwork | every drawn type, and the coin, is in the bundle (> 1 KB). An unknown type draws a present, no text, no image |
 | how long the heart is held | opens at 400 ms, not at 250 ms |
-| the heart, once a gift is sent | draws the gift instead of the heart. Lands with a **gold** burst when it changes. No landing on a rebuild with the same gift |
+| the heart, once a gift is sent | draws the gift instead of the heart. Lands with a **gold** burst when it changes. No landing at all with reduced motion (checked inside the first 10 ms, because Flutter's shortened flash would be gone by 120 ms). No landing on a rebuild with the same gift |
 | sending from the heart | **end to end**: hold → pick → send → the heart is still a heart mid-flight → it becomes the Fire, the count is 4, and the haptics are exactly `[lightImpact, selectionClick, lightImpact, selectionClick]`. With reduced motion, the heart changes with no flight |
 | a gift notification | the PNG twice (badge and trailing), no gift icon, no emoji, "sent a Fire to your post" |
 

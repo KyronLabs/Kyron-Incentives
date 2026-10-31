@@ -229,6 +229,7 @@ size: 21)` in place of the 17 px heart icon:
   like's 620 ms `_play` controller runs the `likePunch` curve (dip to 0.84,
   overshoot, settle) with the like burst painted in **gold `#F2B233`**
   instead of the like's red, spilling 15 px past the icon.
+- **No landing with reduced motion** (see §11).
 - **No false landings.** The like action is keyed `like-<postId>`. A list
   that reuses a row for a different post builds it fresh, so no landing is
   played for a gift that never flew. A rebuild with the same gift does not
@@ -312,6 +313,10 @@ With the system's "remove animations" setting on:
 - the tiles do not move;
 - the celebration is shown still for 900 ms;
 - there is no flight, and the heart changes at once;
-- **the landing punch and gold burst on the heart still play.** They reuse
-  the like's animation, which does not check reduced motion. This is a gap;
-  see [risks](08-risks-and-roadmap.md).
+- there is no landing punch or gold burst: the gift simply replaces the
+  heart (kyron PR #134).
+
+Flutter itself shortens every `AnimationController` to 5% of its length
+under this setting rather than stopping it. A motion that must not appear
+at all has to check `MediaQuery.disableAnimationsOf(context)` itself, as
+the flight, the idle motions, the celebration and the landing do.
